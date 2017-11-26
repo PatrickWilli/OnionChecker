@@ -12,8 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author phamm
+ * Verwendet das Objekt DatabaseConnection um mit dieser Verbindung in die DB zu schreiben
+ * 
  */
 public class DatabaseWriter
 {

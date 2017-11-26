@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author phamm
+ * Hält die Liste der .onion Adressen. Sollte Thread Sicher sein. 
  */
 public class OnionList
 {

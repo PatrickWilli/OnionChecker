@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author phamm
+ * Copyright: http://www.gotoquiz.com/web-coding/programming/java-programming/how-to-extract-titles-from-web-pages-in-java/
  */
 public class TitleExtractor
 {

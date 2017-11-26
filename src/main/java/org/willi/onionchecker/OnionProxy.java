@@ -16,8 +16,8 @@ import java.net.SocketAddress;
 
 
 /**
- *
- * @author phamm
+ * Baut eine Verbindung zu 127.0.0.1:9050 (der lokale TOR port) auf, und versucht die .onion URL zu erreichen. 
+ * Wenn Sie erreichbar ist, wird die gesamte index.html eingelesen, als String konvertiert und zurückgegeben.  
  */
 public class OnionProxy
 {
@@ -31,18 +31,19 @@ public class OnionProxy
     
     public String visitSite() throws IOException
     {
-        //System.getProperties().put("proxySet", "true");
-        //System.getProperties().put("proxyHost", "127.0.0.1");
-        //System.getProperties().put("proxyPort", "9050");
-        SocketAddress addr = new InetSocketAddress("127.0.0.1", 9051);
+        
+        SocketAddress addr = new InetSocketAddress("127.0.0.1", 9050);
         Proxy proxy = new Proxy(Proxy.Type.SOCKS, addr);
         
         Socket socket = new Socket(proxy);
         InetSocketAddress dest = new InetSocketAddress(url, 80);
-  
+        //13 * 10 -> nur 13 anstatt 70 sekunden timeout
         socket.connect(dest, 13 * 1000);
-        InputStreamReader is = new InputStreamReader(socket.getInputStream()) {};
-
+        InputStreamReader is = new InputStreamReader(socket.getInputStream());
+        
+        /*
+        *   GET Anfrage das wir die index seite zurück bekommen
+        */
         PrintWriter pw = new PrintWriter(socket.getOutputStream());
         pw.println("GET / HTTP/1.0");
         pw.println();
@@ -53,7 +54,11 @@ public class OnionProxy
         {
             response += line;
         }
-
+        //fucking ressourcen freigeben
+        socket.close();
+        br.close();
+        pw.close();
+        is.close();
         return response;
           
         

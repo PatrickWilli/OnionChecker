@@ -8,23 +8,18 @@ package org.willi.onionchecker;
 import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.silvertunnel_ng.netlib.api.util.TcpipNetAddress;
-import org.silvertunnel_ng.netlib.util.HttpUtil;
 import org.willi.onionchecker.util.TitleExtractor;
 
 /**
+ *  Diese Klasse übernimmt das prüfen ob die website online ist. Wenn sie nicht Online ist wird eine Exception (Timeout) geworfen.
+ *  Wenn sie online ist werden der Titel der Website Extrahiert und die Attribute gesetzt.  
+ *  Diese Klasse ist auch gleichzeitig das Future Objekt für den ThreadPool. 
  *
- * @author phamm
  */
 public class SiteToCheck implements Callable<SiteToCheck>
 {
     private String url;
-    private TcpipNetAddress httpServerNetAddress;
-    private String title;
     private int isAlive;
     private String index_hmtl;
     private String websiteTitle;
@@ -37,10 +32,9 @@ public class SiteToCheck implements Callable<SiteToCheck>
     
     public void start()
     {
-        httpServerNetAddress = new TcpipNetAddress(url, 80);
         try
         {
-            index_hmtl = new OnionProxy(url).visitSite();
+            index_hmtl = new OnionProxy(url).visitSite(); 
             setIndexHtml(index_hmtl);
             setWebsiteTitle(TitleExtractor.getPageTitle(index_hmtl));
             setisAlive(1);

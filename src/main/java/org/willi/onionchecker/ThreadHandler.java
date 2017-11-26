@@ -11,8 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- *
- * @author phamm
+ * Zuständig für das verwalten der Threads. Könnte mir die klasse eigentlich sparen. 
+ * 
  */
 public class ThreadHandler
 {

@@ -6,8 +6,19 @@
 package org.willi.onionchecker.Database;
 
 /**
- *
- * @author phamm
+ * Konfiguration der Datenbank. Ich verwende MySQL. 
+  
+   Danbank Schema: 
+ 
+   CREATE TABLE `Site` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `URL` varchar(70) NOT NULL,
+  `isAlive` bit(1) NOT NULL,
+  `DateChecked` datetime NOT NULL,
+  `PageTitle` text,
+  `IndexHTML` longtext,
+  PRIMARY KEY (`ID`)
+
  */
 public enum DatabaseConfig
 {

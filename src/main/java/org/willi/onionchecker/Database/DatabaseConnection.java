@@ -6,17 +6,15 @@
 package org.willi.onionchecker.Database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author phamm
+ * Verbindet sich zur Datenbank, und verwendet dabei den MySQL driver. 
+ * Beim erstellen des Objektes 
+ * Die Methode getConnection() liefert eine offene Datenbankverbindung zurück
  */
 public class DatabaseConnection
 {
