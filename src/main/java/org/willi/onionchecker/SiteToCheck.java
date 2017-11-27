@@ -10,6 +10,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.Callable;
 import org.willi.onionchecker.util.TitleExtractor;
+import org.willi.onionchecker.util.RandomInstance;
 
 /**
  *  Diese Klasse übernimmt das prüfen ob die website online ist. Wenn sie nicht Online ist wird eine Exception (Timeout) geworfen.
@@ -23,6 +24,7 @@ public class SiteToCheck implements Callable<SiteToCheck>
     private int isAlive;
     private String index_hmtl;
     private String websiteTitle;
+    private int counter = 0;
 
 
     public SiteToCheck(String url)
@@ -30,7 +32,7 @@ public class SiteToCheck implements Callable<SiteToCheck>
         this.url = url;
     }
     
-    public void start()
+    public void start() 
     {
         try
         {
@@ -44,7 +46,35 @@ public class SiteToCheck implements Callable<SiteToCheck>
         catch (IOException ex)
         {
             setisAlive(0);
-            System.out.println(url + " NOT Reachable");
+            System.out.println(url + " NOT Reachable // " + ex.getMessage());
+            //5 mal versuchen
+            if(counter == 4)
+            {
+                System.err.println("Connection refused 5 times");
+                return;
+            }
+            else
+            {
+                if(!ex.getMessage().toLowerCase().contains("connection refused"))
+                {
+                    return;
+                }
+                   try
+                  {
+                      Thread.sleep(RandomInstance.getInstance().nextInt(3000));
+                      counter++;
+                      start();
+                  }
+                  catch(InterruptedException i)
+                  {
+                      System.err.println("cannot sleep...");
+                      counter++;
+                      start();
+
+                  }
+                
+              
+            }
         }
  
     }

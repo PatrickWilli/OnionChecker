@@ -55,10 +55,10 @@ public class OnionProxy
             response += line;
         }
         //fucking ressourcen freigeben
-        socket.close();
         br.close();
         pw.close();
         is.close();
+        socket.close();
         return response;
           
         

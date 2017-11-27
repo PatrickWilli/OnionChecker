@@ -25,7 +25,7 @@ public class Test
         ListReader lr = new ListReader("C:\\Users\\phamm\\Desktop\\onion\\onion.txt");
         lr.readList();
         
-        ThreadHandler th = new ThreadHandler(20);
+        ThreadHandler th = new ThreadHandler(5);
         
       
         
